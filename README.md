@@ -1,3 +1,7 @@
+# Projeto - Neural Network Parallel with OPENMP
+
+Este projeto é uma adaptação de código do projeto original presente em: [Neural-Network-MNIST-CPP](https://github.com/HyTruongSon/Neural-Network-MNIST-CPP)
+
 Software: Artificial Neural Network for MNIST database (C++)
 Author: Hy Truong Son
 Major: BSc. Computer Science
@@ -7,32 +11,10 @@ Email: sonpascal93@gmail.com
 Website: http://people.inf.elte.hu/hytruongson/
 Copyright 2015 (c). All rights reserved.
 
-Overall
--------
-Neural Network implementation in C++ running for MNIST database.
+## Overall
+O projeto original tem como objetivo realizar o treinamento de uma máquina capaz de reconhecer números escritos em "imagens" simuladas via terminal, como o seguinte exemplo:
 
-Structure
----------
-File training_nn.cpp: the code for training a neural network
-File testing_nn.cpp: the code for testing a trained neural network
-File model-neural-network.dat: contains the weights of the neural network
-File training-report.dat, testing-report.dat: report files, saving results of training and testing
-Folder ~/mnist/: MNIST database
-
-Note: model-neural-network.dat is the input for teting process (testing_nn.cpp)
-
-Usage
------
-* Compile:
-$ g++ training_nn.cpp -o training_nn
-$ g++ testing_nn.cpp -o testing_nn
-
-* Training:
-$ ./training_nn
-**************************************************
-*** Training Neural Network for MNIST database ***
-**************************************************
-
+```
 No. input neurons: 784
 No. hidden neurons: 128
 No. output neurons: 10
@@ -114,14 +96,10 @@ Label: 0
 No. iterations: 512
 Error: 0.007427
 
-...
+```
 
-* Testing:
-$ ./testing_nn 
-*************************************************
-*** Testing Neural Network for MNIST database ***
-*************************************************
-
+Após o treinamento, a máquina é sujeita a uma avaliação em que é possível se verificar a taxa de acerto da máquina, da seguinte forma:
+```
 No. input neurons: 784
 No. hidden neurons: 128
 No. output neurons: 10
@@ -146,3 +124,59 @@ Classification: YES. Label = 6. Predict = 6
 
 Number of correct samples: 9440 / 10000
 Accuracy: 94.40
+
+```
+## Structure
+File training_nn.cpp: the code for training a neural network
+File testing_nn.cpp: the code for testing a trained neural network
+File model-neural-network.dat: contains the weights of the neural network
+File training-report.dat, testing-report.dat: report files, saving results of training and testing
+Folder ~/mnist/: MNIST database
+
+Note: model-neural-network.dat is the input for teting process (testing_nn.cpp)
+
+## Usage
+* Compile:
+```
+$ g++ training_nn.cpp -o training_nn
+$ g++ testing_nn.cpp -o testing_nn
+```
+
+* Training:
+```
+$ ./training_nn
+```
+* Testing:
+```
+$ ./testing_nn
+```
+
+## Results 
+
+Para realizar a paralelização do código, optamos por tentar fazer com que a máquina aprendesse mais rápido, paralelizando o treinamento. Dessa forma, a fins de demonstração de resultado,
+utilizamos uma mesma quantidade de _samples_ (300) para os testes sequenciais e paralelos.
+
+Seguem os resultados dos testes e os tempos de execução utilizando o servidor Parcode:
+
+### Sequencial
+
+Tempo de execução do treinamento
+``` 
+real    1m01.710s
+user    1m01.607s
+sys     0m0.068s
+```
+Taxa de acerto no teste da máquina
+```
+Accuracy: 68.57%
+
+real    0m7.299s
+user    0m2.058s
+sys     0m0.449s
+```
+
+### Paralelo
+
+Tempo de execução do treinamento
+
+
