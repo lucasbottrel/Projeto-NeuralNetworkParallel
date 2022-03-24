@@ -130,6 +130,7 @@ Accuracy: 94.40
 
 ## Structure
 
+```
 File training_nn.cpp: the code for training a neural network
 File testing_nn.cpp: the code for testing a trained neural network
 File model-neural-network.dat: contains the weights of the neural network
@@ -137,6 +138,7 @@ File training-report.dat, testing-report.dat: report files, saving results of tr
 Folder ~/mnist/: MNIST database
 
 Note: model-neural-network.dat is the input for teting process (testing_nn.cpp)
+```
 
 ## Usage
 
