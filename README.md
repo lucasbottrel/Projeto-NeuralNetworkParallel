@@ -99,7 +99,8 @@ Error: 0.007427
 ```
 
 Após o treinamento, a máquina é sujeita a uma avaliação em que é possível se verificar a taxa de acerto da máquina, da seguinte forma:
-``
+
+```
 No. input neurons: 784
 No. hidden neurons: 128
 No. output neurons: 10
@@ -125,7 +126,7 @@ Classification: YES. Label = 6. Predict = 6
 Number of correct samples: 9440 / 10000
 Accuracy: 94.40
 
-``
+```
 
 ## Structure
 
@@ -141,24 +142,23 @@ Note: model-neural-network.dat is the input for teting process (testing_nn.cpp)
 
 * Compile:
   
-``
-
+```
 $ g++ training_nn.cpp -o training_nn
 $ g++ testing_nn.cpp -o testing_nn
 
-``
+```
 
 * Training:
   
-``
+```
 $ ./training_nn
-``
+```
 
 * Testing:
   
-``
+```
 $ ./testing_nn
-``
+```
 
 ## Results
 
@@ -171,11 +171,11 @@ Seguem os resultados dos testes e os tempos de execução utilizando o servidor 
 
 Tempo de execução do treinamento
 
-``
+```
 real    0m50,811s
 user    0m50,714s
 sys     0m0,076s
-``
+```
 
 Taxa de acerto no teste da máquina
 ```
@@ -191,7 +191,4 @@ sys     0m0,190s
 
 Tempo de execução do treinamento
 
-``
-
-``
 
