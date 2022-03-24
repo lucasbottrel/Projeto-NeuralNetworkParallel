@@ -147,12 +147,10 @@ double sigmoid(double x) {
 // +------------------------------+
 
 void perceptron() {
-    #pragma omp parallel for
     for (int i = 1; i <= n2; ++i) {
 		in2[i] = 0.0;
 	}
-    
-    #pragma omp parallel for
+
     for (int i = 1; i <= n3; ++i) {
 		in3[i] = 0.0;
 	}
@@ -168,7 +166,6 @@ void perceptron() {
 	}
 
     for (int i = 1; i <= n2; ++i) {
-         #pragma omp parallel for simd private(j)
         for (int j = 1; j <= n3; ++j) {
             in3[j] += out2[i] * w2[i][j];
 		}
