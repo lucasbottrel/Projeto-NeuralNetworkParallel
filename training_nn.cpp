@@ -35,7 +35,7 @@ const string model_fn = "model-neural-network.dat";
 const string report_fn = "training-report.dat";
 
 // Number of training samples
-const int nTraining = 1000;
+const int nTraining = 300;
 
 // Image size in MNIST database
 const int width = 28;
@@ -105,7 +105,6 @@ void about() {
 
 void init_array() {
 	// Layer 1 - Layer 2 = Input layer - Hidden layer
-    //#pragma omp parallel for
     for (int i = 1; i <= n1; ++i) {
         w1[i] = new double [n2 + 1];
         delta1[i] = new double [n2 + 1];
@@ -114,7 +113,6 @@ void init_array() {
     out1 = new double [n1 + 1];
 
 	// Layer 2 - Layer 3 = Hidden layer - Output layer
-    //#pragma omp parallel for
     for (int i = 1; i <= n2; ++i) {
         w2[i] = new double [n3 + 1];
         delta2[i] = new double [n3 + 1];
@@ -130,7 +128,6 @@ void init_array() {
     theta3 = new double [n3 + 1];
     
     // Initialization for weights from Input layer to Hidden layer
-    //#pragma omp parallel for collapse(2)
     for (int i = 1; i <= n1; ++i) {
         for (int j = 1; j <= n2; ++j) {
             int sign = rand() % 2;
@@ -146,7 +143,6 @@ void init_array() {
 	}
 	
 	// Initialization for weights from Hidden layer to Output layer
-    //#pragma omp parallel for collapse(2)
     for (int i = 1; i <= n2; ++i) {
         for (int j = 1; j <= n3; ++j) {
             int sign = rand() % 2;
@@ -175,38 +171,30 @@ double sigmoid(double x) {
 // +------------------------------+
 
 void perceptron() {
-    #pragma omp parallel for
     for (int i = 1; i <= n2; ++i) {
 		in2[i] = 0.0;
 	}
 
-    #pragma omp parallel for
     for (int i = 1; i <= n3; ++i) {
 		in3[i] = 0.0;
 	}
 
-    //#pragma omp parallel for
     for (int i = 1; i <= n1; ++i) {
-        //#pragma omp parallel for reduction(+:in2)
         for (int j = 1; j <= n2; ++j) {
             in2[j] += out1[i] * w1[i][j];
 		}
 	}
 
-    //#pragma omp parallel for
     for (int i = 1; i <= n2; ++i) {
 		out2[i] = sigmoid(in2[i]);
 	}
 
-    //#pragma omp parallel for 
     for (int i = 1; i <= n2; ++i) {
-        //#pragma omp parallel for reduction(+:in3)
         for (int j = 1; j <= n3; ++j) {
             in3[j] += out2[i] * w2[i][j];
 		}
 	}
 
-    //#pragma omp parallel for
     for (int i = 1; i <= n3; ++i) {
 		out3[i] = sigmoid(in3[i]);
 	}
@@ -218,7 +206,6 @@ void perceptron() {
 
 double square_error(){
     double res = 0.0;
-    //#pragma omp parallel for reduction(+: res)
     for (int i = 1; i <= n3; ++i) {
         res += (out3[i] - expected[i]) * (out3[i] - expected[i]);
 	}
@@ -233,22 +220,18 @@ double square_error(){
 void back_propagation() {
     double sum;
 
-    //#pragma omp parallel for
     for (int i = 1; i <= n3; ++i) {
         theta3[i] = out3[i] * (1 - out3[i]) * (expected[i] - out3[i]);
 	}
 
-    //#pragma omp parallel for
     for (int i = 1; i <= n2; ++i) {
         sum = 0.0;
-        //#pragma omp parallel for private(sum) reduction(+:sum)
         for (int j = 1; j <= n3; ++j) {
             sum += w2[i][j] * theta3[j];
 		}
         theta2[i] = out2[i] * (1 - out2[i]) * sum;
     }
 
-    //#pragma omp parallel for colapse(2)
     for (int i = 1; i <= n2; ++i) {
         for (int j = 1; j <= n3; ++j) {
             delta2[i][j] = (learning_rate * theta3[j] * out2[i]) + (momentum * delta2[i][j]);
@@ -256,7 +239,6 @@ void back_propagation() {
         }
 	}
 
-    //#pragma omp parallel for colapse(2)
     for (int i = 1; i <= n1; ++i) {
         for (int j = 1 ; j <= n2 ; j++ ) {
             delta1[i][j] = (learning_rate * theta2[j] * out1[i]) + (momentum * delta1[i][j]);
@@ -270,21 +252,19 @@ void back_propagation() {
 // +-------------------------------------------------+
 
 int learning_process() {
-    //#pragma omp parallel for colapse(2)
+
     for (int i = 1; i <= n1; ++i) {
         for (int j = 1; j <= n2; ++j) {
 			delta1[i][j] = 0.0;
 		}
 	}
 
-    //#pragma omp parallel for colapse(2)
     for (int i = 1; i <= n2; ++i) {
         for (int j = 1; j <= n3; ++j) {
 			delta2[i][j] = 0.0;
 		}
 	}
 
-    //#pragma omp parallel for
     for (int i = 1; i <= epochs; ++i) {
         perceptron();
         back_propagation();
@@ -302,7 +282,6 @@ int learning_process() {
 void input() {
 	// Reading image
     char number;
-    //#pragma omp parallel for colapse(2)
     for (int j = 1; j <= height; ++j) {
         for (int i = 1; i <= width; ++i) {
             image.read(&number, sizeof(char));
@@ -315,7 +294,6 @@ void input() {
 	}
 	
 	cout << "Image:" << endl;
-	//#pragma omp parallel for colapse(2)
     for (int j = 1; j <= height; ++j) {
 		for (int i = 1; i <= width; ++i) {
 			cout << d[i][j];
@@ -323,7 +301,6 @@ void input() {
 		cout << endl;
 	}
 
-    //#pragma omp parallel for colapse(2)
     for (int j = 1; j <= height; ++j) {
         for (int i = 1; i <= width; ++i) {
             int pos = i + (j - 1) * width;
@@ -333,7 +310,6 @@ void input() {
 
 	// Reading label
     label.read(&number, sizeof(char));
-    //#pragma omp parallel for
     for (int i = 1; i <= n3; ++i) {
 		expected[i] = 0.0;
 	}
@@ -350,7 +326,6 @@ void write_matrix(string file_name) {
     ofstream file(file_name.c_str(), ios::out);
 	
 	// Input layer - Hidden layer
-    //#pragma omp parallel for colapse(2)
     for (int i = 1; i <= n1; ++i) {
         for (int j = 1; j <= n2; ++j) {
 			file << w1[i][j] << " ";
@@ -359,7 +334,6 @@ void write_matrix(string file_name) {
     }
 	
 	// Hidden layer - Output layer
-    //#pragma omp parallel for colapse(2)
     for (int i = 1; i <= n2; ++i) {
         for (int j = 1; j <= n3; ++j) {
 			file << w2[i][j] << " ";
@@ -377,24 +351,23 @@ void write_matrix(string file_name) {
 int main(int argc, char *argv[]) {
 	about();
 	
+    //omp_set_num_threads(2);
+
     report.open(report_fn.c_str(), ios::out);
     image.open(training_image_fn.c_str(), ios::in | ios::binary); // Binary image file
     label.open(training_label_fn.c_str(), ios::in | ios::binary ); // Binary label file
 
 	// Reading file headers
     char number;
-    //#pragma omp parallel for
     for (int i = 1; i <= 16; ++i) {
         image.read(&number, sizeof(char));
 	}
-    //#pragma omp parallel for
     for (int i = 1; i <= 8; ++i) {
         label.read(&number, sizeof(char));
 	}
 		
 	// Neural Network Initialization
     init_array();
-    //#pragma omp parallel for
     for (int sample = 1; sample <= nTraining; ++sample) {
         cout << "Sample " << sample << endl;
         
