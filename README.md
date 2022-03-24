@@ -151,7 +151,7 @@ $ ./training_nn
 $ ./testing_nn
 ```
 
-## Results 
+## Results
 
 Para realizar a paralelização do código, optamos por tentar fazer com que a máquina aprendesse mais rápido, paralelizando o treinamento. Dessa forma, a fins de demonstração de resultado,
 utilizamos uma mesma quantidade de _samples_ (300) para os testes sequenciais e paralelos.
@@ -161,9 +161,10 @@ Seguem os resultados dos testes e os tempos de execução utilizando o servidor 
 ### Sequencial
 
 Tempo de execução do treinamento
-``` 
-real    1m01.710s
-user    1m01.607s
+
+```
+real    1m10.710s
+user    1m10.607s
 sys     0m0.068s
 ```
 Taxa de acerto no teste da máquina
