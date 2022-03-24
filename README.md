@@ -99,7 +99,7 @@ Error: 0.007427
 ```
 
 Após o treinamento, a máquina é sujeita a uma avaliação em que é possível se verificar a taxa de acerto da máquina, da seguinte forma:
-```
+``
 No. input neurons: 784
 No. hidden neurons: 128
 No. output neurons: 10
@@ -125,8 +125,10 @@ Classification: YES. Label = 6. Predict = 6
 Number of correct samples: 9440 / 10000
 Accuracy: 94.40
 
-```
+``
+
 ## Structure
+
 File training_nn.cpp: the code for training a neural network
 File testing_nn.cpp: the code for testing a trained neural network
 File model-neural-network.dat: contains the weights of the neural network
@@ -136,20 +138,27 @@ Folder ~/mnist/: MNIST database
 Note: model-neural-network.dat is the input for teting process (testing_nn.cpp)
 
 ## Usage
+
 * Compile:
-```
+  
+``
+
 $ g++ training_nn.cpp -o training_nn
 $ g++ testing_nn.cpp -o testing_nn
-```
+
+``
 
 * Training:
-```
+  
+``
 $ ./training_nn
-```
+``
+
 * Testing:
-```
+  
+``
 $ ./testing_nn
-```
+``
 
 ## Results
 
@@ -162,22 +171,27 @@ Seguem os resultados dos testes e os tempos de execução utilizando o servidor 
 
 Tempo de execução do treinamento
 
-```
-real    1m10.710s
-user    1m10.607s
-sys     0m0.068s
-```
+``
+real    0m50,811s
+user    0m50,714s
+sys     0m0,076s
+``
+
 Taxa de acerto no teste da máquina
 ```
-Accuracy: 68.57%
+Number of correct samples: 8023 / 10000
+Accuracy: 80.23%
 
-real    0m7.299s
-user    0m2.058s
-sys     0m0.449s
+real    0m1,475s
+user    0m0,855s
+sys     0m0,190s
 ```
 
 ### Paralelo
 
 Tempo de execução do treinamento
 
+``
+
+``
 

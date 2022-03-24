@@ -35,7 +35,7 @@ const string model_fn = "model-neural-network.dat";
 const string report_fn = "training-report.dat";
 
 // Number of training samples
-const int nTraining = 300;
+const int nTraining = 1000;
 
 // Image size in MNIST database
 const int width = 28;
@@ -175,19 +175,19 @@ double sigmoid(double x) {
 // +------------------------------+
 
 void perceptron() {
-    //#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 1; i <= n2; ++i) {
 		in2[i] = 0.0;
 	}
 
-    //#pragma omp parallel for
+    #pragma omp parallel for
     for (int i = 1; i <= n3; ++i) {
 		in3[i] = 0.0;
 	}
 
     //#pragma omp parallel for
     for (int i = 1; i <= n1; ++i) {
-        #pragma omp parallel for reduction(+:in2)
+        //#pragma omp parallel for reduction(+:in2)
         for (int j = 1; j <= n2; ++j) {
             in2[j] += out1[i] * w1[i][j];
 		}
