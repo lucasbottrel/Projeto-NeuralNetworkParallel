@@ -171,8 +171,24 @@ Seguem os resultados dos testes e os tempos de execução utilizando o servidor 
 Tempo de execução do treinamento
 
 ```
-real    0m45.004s
-user    0m45.000s
+real    0m56.674s
+user    0m56.6010s
+sys     0m0.052s
+```
+
+Taxa de acerto no teste da máquina
+```
+Number of correct samples: 647/ 1000
+Accuracy: 64.70%
+```
+
+### Paralelo
+
+Tempo de execução do treinamento - 2 threads
+
+```
+real    0m54.034s
+user    0m54.030s
 sys     0m0.000s
 ```
 
@@ -182,46 +198,30 @@ Number of correct samples: 648 / 1000
 Accuracy: 64.80%
 ```
 
-### Paralelo
-
-Tempo de execução do treinamento - 2 threads
-
-```
-real    0m41.034s
-user    0m41.030s
-sys     0m0.000s
-```
-
-Taxa de acerto no teste da máquina
-```
-Number of correct samples: 639 / 1000
-Accuracy: 63.90%
-```
-
 Tempo de execução do treinamento - 4 threads
 
 ```
-real    0m36.804s
-user    0m36.721s
+real    0m51.804s
+user    0m51.721s
 sys     0m0.000s
 ```
 
 Taxa de acerto no teste da máquina
 ```
-Number of correct samples: 621 / 1000
-Accuracy: 62.10%
+Number of correct samples: 645 / 1000
+Accuracy: 64.50%
 ```
 
 Tempo de execução do treinamento - 8 threads
 
 ```
-real    0m32.001s
-user    0m32.021s
+real    0m52.001s
+user    0m52.021s
 sys     0m0.000s
 ```
 
 Taxa de acerto no teste da máquina
 ```
-Number of correct samples: 605 / 1000
-Accuracy: 60.50%
+Number of correct samples: 647 / 1000
+Accuracy: 64.70%
 ```

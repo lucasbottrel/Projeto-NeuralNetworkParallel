@@ -105,6 +105,7 @@ void about() {
 
 void init_array() {
 	// Layer 1 - Layer 2 = Input layer - Hidden layer
+    #pragma omp parallel for simd
     for (int i = 1; i <= n1; ++i) {
         w1[i] = new double [n2 + 1];
         delta1[i] = new double [n2 + 1];
@@ -171,12 +172,12 @@ double sigmoid(double x) {
 // +------------------------------+
 
 void perceptron() {
-    #pragma omp parallel for
+    //#pragma omp parallel for
     for (int i = 1; i <= n2; ++i) {
 		in2[i] = 0.0;
 	}
 
-    #pragma omp parallel for
+    //#pragma omp parallel for
     for (int i = 1; i <= n3; ++i) {
 		in3[i] = 0.0;
 	}
@@ -256,14 +257,14 @@ void back_propagation() {
 int learning_process() {
 
     for (int i = 1; i <= n1; ++i) {
-        #pragma omp parallel for simd 
+        //#pragma omp parallel for simd 
         for (int j = 1; j <= n2; ++j) {
 			delta1[i][j] = 0.0;
 		}
 	}
 
     for (int i = 1; i <= n2; ++i) {
-        #pragma omp parallel for simd 
+        //#pragma omp parallel for simd 
         for (int j = 1; j <= n3; ++j) {
 			delta2[i][j] = 0.0;
 		}
